@@ -1,6 +1,5 @@
 {% set name = "itkwasm" %}
 {% set version = "1.0b195" %}
-{% set python_min = "3.9" %}
 
 package:
   name: {{ name }}
@@ -26,12 +25,12 @@ build:
 
 requirements:
   host:
-    - python >={{ python_min }},<3.14
+    - python
     - pip
     - hatchling
     - wasmtime-py
   run:
-    - python >={{ python_min }},<3.14
+    - python
     - numpy
     - platformdirs
     - typing_extensions
@@ -47,11 +46,8 @@ about:
   license: Apache-2.0
   license_file: LICENSE
   home: https://pypi.org/project/itkwasm/
-  repository: https://github.com/InsightSoftwareConsortium/ITK-Wasm
 
 extra:
-  skip-lints:
-    - should_be_noarch_generic
   recipe-maintainers:
     - khaled196
     - thewtex
