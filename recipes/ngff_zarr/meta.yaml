@@ -1,0 +1,64 @@
+{% set name = "ngff_zarr" %}
+{% set version = "0.29.0" %}
+
+
+package:
+  name: {{ name }}
+  version: "{{ version }}"
+
+source:
+  url: https://pypi.org/packages/source/n/ngff_zarr/ngff_zarr-{{ version }}.tar.gz
+  sha256: 9a6ea26db82b81a257d50077c83bb36912f59b8508454bfcb7e1bb0f0439b2b7
+
+
+build:
+  number: 0
+  script_env:
+    - MACOSX_DEPLOYMENT_TARGET=10.15
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  python:
+    entry_points:
+      - ngff-zarr = ngff_zarr.cli:main
+  run_exports:
+    - {{ pin_subpackage(name, max_pin="x.x") }}
+
+
+requirements:
+  host:
+    - python
+    - pip
+    - hatchling
+    - itkwasm
+  run:
+    - python
+    - numpy >=1.21
+    - zarr >=2.13
+    - numcodecs >=0.10
+    - dask-core
+    - importlib_resources
+    - typing_extensions
+    - platformdirs
+    - psutil
+    - rich
+    - rich-argparse
+    - itkwasm
+
+test:
+  requires:
+    - python
+  imports:
+    - ngff_zarr
+
+about:
+  summary: "NGFF Zarr: Multiscale bioimaging data in Zarr format"
+  home:  https://github.com/fideus-labs/ngff-zarr
+  doc_url: https://ngff-zarr.readthedocs.io/
+  license: MIT
+  license_file: LICENSE
+  
+  
+
+extra:
+  recipe-maintainers:
+    - khaled196
+    - thewtex
